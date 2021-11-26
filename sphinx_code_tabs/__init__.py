@@ -10,6 +10,17 @@ import os
 CSS_FILE = "code-tabs.css"
 JS_FILE = "code-tabs.js"
 
+_compatible_builders = [
+    "html",
+    "singlehtml",
+    "dirhtml",
+    "readthedocs",
+    "readthedocsdirhtml",
+    "readthedocssinglehtml",
+    "readthedocssinglehtmllocalmedia",
+    "spelling",
+]
+
 
 class CodeTabs(Directive):
 
@@ -39,11 +50,14 @@ class CodeTab(CodeBlock):
         title=directives.unchanged_required)
 
     def run(self):
-        outer = Tab()
-        outer['title'] = self.options.get('title')
-        outer['classes'] += ['code-tab']
-        outer += super().run()
-        return [outer]
+        if self.env.app.builder.name in _compatible_builders:
+            outer = Tab()
+            outer['title'] = self.options.get('title')
+            outer['classes'] += ['code-tab']
+            outer += super().run()
+            return [outer]
+        else:
+            return super().run()
 
 
 class Tab(nodes.Part, nodes.Element):
@@ -59,6 +73,8 @@ def visit_tab_html(self, node):
 def depart_tab_html(self, node):
     self.body.append('</div>')
 
+def latex_noop(self, node):
+    pass
 
 def add_assets(app):
     app.config.html_static_path.append(os.path.dirname(__file__))
@@ -67,7 +83,7 @@ def add_assets(app):
 
 
 def setup(app):
-    app.add_node(Tab, html=(visit_tab_html, depart_tab_html))
+    app.add_node(Tab, html=(visit_tab_html, depart_tab_html), latex=(latex_noop, latex_noop))
     app.add_directive("code-tabs", CodeTabs)
     app.add_directive("code-tab", CodeTab)
     app.connect("builder-inited", add_assets)
