@@ -18,6 +18,10 @@
 	text-indent: 4px;
 }
 
+.code-tabs-menu-controls {
+	margin-right: 12px;
+}
+
 .code-tabs-menu-button {
 	margin: 0 5px 0 0;
 	padding: 0px 10px;
