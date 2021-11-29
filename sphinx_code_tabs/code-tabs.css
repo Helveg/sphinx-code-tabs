@@ -7,6 +7,7 @@
 .code-tabs-menu {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	overflow: hidden;
   border: none;
 	border-radius: 6px;
@@ -32,4 +33,26 @@
 
 div.hidden {
   display: none;
+}
+
+.code-tabs-outer-button:hover {
+  background: rgba(255, 255, 255, 0.1) radial-gradient(circle, transparent 1%, rgba(255, 255, 255, 0.1) 1%) center/15000%;
+}
+
+.code-tabs-outer-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.code-tabs-outer-button.selected {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.code-tabs-outer-button {
+	border-radius: 4px;
+	padding: 4px;
+  background-position: center;
+  transition: background 0.8s;
+	margin-right: 4px;
 }
