@@ -38,3 +38,6 @@ htmlcov
 
 # Dev env
 .python-version
+
+# IDE
+.idea/

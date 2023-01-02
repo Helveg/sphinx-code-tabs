@@ -9,6 +9,6 @@ with open('sphinx_code_tabs/__init__.py', 'rb') as f:
 
 
 setup(
-    name='sphinx_code_tabs',
+    name='helveg--sphinx-code-tabs',
     version=meta['__version__'],
 )
